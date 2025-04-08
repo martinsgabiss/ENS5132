@@ -138,31 +138,49 @@ allFiles = pd.concat(allFiles)
 #Extraindo nomes das estações sem redundança
 stations = pd.unique(allFiles['Estacao'])
 
-# usando lógica...
-stationDf = allFiles[allFiles['Estacao'] == [0]]
+# Diretório onde salvar os arquivos CSV
+outputDir = r"C:\Users\jrmjr\Documents\ENS5132\Estacoes_CSV"
+os.makedirs(outputDir, exist_ok=True)
 
-# criando coluna datetime
+# Loop para cada estação
+for station in stations:
 
-datetimDf = pd.to_datetime(stationDf.Data, format='%Y-%m-%d')
+    stationDf = allFiles[allFiles['Estacao'] == station].copy()
 
-# criando coluna datetime dentro da stationDf
-stationDf['datetime'] = datetimDf
+    # Criando coluna datetime
+    datetimDf = pd.to_datetime(stationDf['Data'], format='%Y-%m-%d', errors='coerce')
+    stationDf['datetime'] = datetimDf
+    stationDf = stationDf.dropna(subset=['datetime'])  # remove linhas com data inválida
 
-# Transformando a coluna de datetime em index
-stationDf = stationDf.set_index(stationDf['datetime'])
+    # Transformando a coluna de datetime em index
+    stationDf = stationDf.set_index('datetime')
 
-#Extrair o ano e o mês
-stationDf['year'] = stationDf.index.year
-stationDf['month'] = stationDf.index.month
-stationDf['day'] = stationDf.index.day
+    # Extraindo ano, mês, dia
+    stationDf['year'] = stationDf.index.year
+    stationDf['month'] = stationDf.index.month
+    stationDf['day'] = stationDf.index.day
 
-stationDf['hour'] = stationDf.index.hour
+    # Extraindo a hora
+    horas = stationDf['Hora'].astype(str).str.split(':')
+    horaDf = [h[0] if isinstance(h, list) else '0' for h in horas]
+    stationDf['hour'] = horaDf
+
+    # Corrigindo a coluna datetime
+    stationDf['datetime'] = pd.to_datetime(
+        stationDf[['year', 'month', 'day', 'hour']].astype(str),
+        format='%Y%m%d %H',
+        errors='coerce'
+    )
+
+    # Criando nome limpo para o arquivo
+    station_name_clean = station.replace(" ", "_").replace("/", "_")
+    file_name = f"{station_name_clean}.csv"
+    output_path = os.path.join(outputDir, file_name)
+
+    # Exportando
+    stationDf.to_csv(output_path, index=True)
+   
+
 
     
     
-    
-
-
-
-
-      

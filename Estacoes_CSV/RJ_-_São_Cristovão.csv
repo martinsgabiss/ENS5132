@@ -1,0 +1,2 @@
+datetime,Data,Hora,Estacao,Codigo,Poluente,Valor,Unidade,Tipo,year,month,day,hour,datetime
+2015-12-13,2015-12-13,12:00,RJ - São Cristovão,RJ110,MP10,36.0,ug/m3,manual,2015,12,13,12,2015-12-13 12:00:00

@@ -1,0 +1,19 @@
+datetime,Data,Hora,Estacao,Codigo,Poluente,Valor,Unidade,Tipo,year,month,day,hour,datetime
+2020-01-15,2020-01-15,00:00,RJ - Frente da Mineração,RJ285,PTS,79.62,µg/m3,manual,2020,1,15,00,2020-01-15
+2020-01-21,2020-01-21,00:00,RJ - Frente da Mineração,RJ285,PTS,113.78,µg/m3,manual,2020,1,21,00,2020-01-21
+2020-01-27,2020-01-27,00:00,RJ - Frente da Mineração,RJ285,PTS,63.3,µg/m3,manual,2020,1,27,00,2020-01-27
+2020-02-02,2020-02-02,00:00,RJ - Frente da Mineração,RJ285,PTS,32.27,µg/m3,manual,2020,2,2,00,2020-02-02
+2020-02-08,2020-02-08,00:00,RJ - Frente da Mineração,RJ285,PTS,50.8,µg/m3,manual,2020,2,8,00,2020-02-08
+2020-02-14,2020-02-14,00:00,RJ - Frente da Mineração,RJ285,PTS,69.93,µg/m3,manual,2020,2,14,00,2020-02-14
+2020-02-20,2020-02-20,00:00,RJ - Frente da Mineração,RJ285,PTS,56.01,µg/m3,manual,2020,2,20,00,2020-02-20
+2020-02-26,2020-02-26,00:00,RJ - Frente da Mineração,RJ285,PTS,32.66,µg/m3,manual,2020,2,26,00,2020-02-26
+2020-03-03,2020-03-03,00:00,RJ - Frente da Mineração,RJ285,PTS,27.94,µg/m3,manual,2020,3,3,00,2020-03-03
+2020-03-09,2020-03-09,00:00,RJ - Frente da Mineração,RJ285,PTS,67.99,µg/m3,manual,2020,3,9,00,2020-03-09
+2020-03-15,2020-03-15,00:00,RJ - Frente da Mineração,RJ285,PTS,63.63,µg/m3,manual,2020,3,15,00,2020-03-15
+2020-03-21,2020-03-21,00:00,RJ - Frente da Mineração,RJ285,PTS,20.33,µg/m3,manual,2020,3,21,00,2020-03-21
+2020-05-26,2020-05-26,00:00,RJ - Frente da Mineração,RJ285,PTS,129.48,µg/m3,manual,2020,5,26,00,2020-05-26
+2020-06-01,2020-06-01,00:00,RJ - Frente da Mineração,RJ285,PTS,189.39,µg/m3,manual,2020,6,1,00,2020-06-01
+2020-06-07,2020-06-07,00:00,RJ - Frente da Mineração,RJ285,PTS,65.66,µg/m3,manual,2020,6,7,00,2020-06-07
+2020-06-13,2020-06-13,00:00,RJ - Frente da Mineração,RJ285,PTS,131.22,µg/m3,manual,2020,6,13,00,2020-06-13
+2020-06-19,2020-06-19,00:00,RJ - Frente da Mineração,RJ285,PTS,156.09,µg/m3,manual,2020,6,19,00,2020-06-19
+2020-06-25,2020-06-25,00:00,RJ - Frente da Mineração,RJ285,PTS,233.34,µg/m3,manual,2020,6,25,00,2020-06-25
