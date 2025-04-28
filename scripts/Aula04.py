@@ -114,7 +114,7 @@ df['SO4'][0] = 10
 #%% Trabalhando com dado real
 
 #criando um DataFrame manualmente
-uf = 'RJ'
+uf = 'CE'
 
 #definindo o caminho para a pasta de dados
 dataDir = r"C:\Users\jrmjr\Documents\ENS5132" + '/' + uf
@@ -139,7 +139,7 @@ allFiles = pd.concat(allFiles)
 stations = pd.unique(allFiles['Estacao'])
 
 # Diretório onde salvar os arquivos CSV
-outputDir = r"C:\Users\jrmjr\Documents\ENS5132\Estacoes_CSV"
+outputDir = r"C:\Users\jrmjr\Documents\ENS5132\CE"
 os.makedirs(outputDir, exist_ok=True)
 
 # Loop para cada estação
@@ -181,6 +181,131 @@ for station in stations:
     stationDf.to_csv(output_path, index=True)
    
 
+'''
+#%% Trabalhando com Pandas!!
 
+# Criando um DataFrame manualmente 
+#São utilizados para armazenar, organizar e manipular dados de forma eficiente, 
+#facilitando tarefas como leitura de arquivos (CSV, Excel, etc.), limpeza 
+#de dados, análise exploratória e modelagem estatística.
+
+df = pd.DataFrame(columns=['date','NH3'],
+                  data=[
+                      ['2025/04/01',0.35],
+                      ['2025/04/02',1.01]
+                      ])
+
+# Criando mais coisas dentro do df
+df['NO3'] = np.nan 
+df['O2'] = [2 , 10]
+df['SO4'] = np.nan 
+df['SO4'][0] = 10
+
+#%% Trabalhando com dado real
+# Criando variável com o nome do estado
+uf = 'CE'
+
+# Definindo o caminho para a pasta de dados
+dataDir = r"C:\Users\jrmjr\Documents\ENS5132" +'/'+ uf
+
+# Lista de arquivos dentro da pasta (os.listdir(caminho) pega todos os nomes 
+#dos arquivos e subpastas que estão no caminho que você passar.)
+dataList = os.listdir(dataDir)
+
+# Movendo para a pasta de dados/uf - caminho 'novo'
+os.chdir(dataDir)
+
+allFiles =[]
+# Loop na lista dataList 
+for fileInList in dataList:
+    print(fileInList) #vaii mostrar o arquivo a cada loop
+    dfConc = pd.read_csv(fileInList,encoding='latin1') #vai ler cada arq em csv, encoding para evitar erro na escrita
+    allFiles.append(dfConc) # Guarda o DataFrame na lista allFiles
+
+# Concatenando meus DataFrames
+allFiles = pd.concat(allFiles)
+
+# Extraindo nomes das estações sem redundância
+stations = pd.unique(allFiles['Estacao'])
+
+# usando lógica...
+stationDf = allFiles[allFiles['Estacao'] == stations[0]]
+
+# Criando coluna datetime
+datetimeDf = pd.to_datetime(stationDf.Data, format='%Y-%m-%d')
+
+
+# Criando coluna datetime dentro de stationDf
+stationDf['datetime'] = datetimeDf
+
+# Transformando a coluna de datetime em index
+stationDf = stationDf.set_index(stationDf['datetime'])
+
+# Extrair o ano e mês
+stationDf['year'] = stationDf.index.year
+stationDf['month'] = stationDf.index.month
+stationDf['day'] = stationDf.index.day
+
+# Extraindo a hora
+horas  = stationDf.Hora.str.split(':')
+
+horaDf = []
+for hora in horas:
+    print(hora[0])
+    horaDf.append(hora[0])
+
+stationDf['hour'] = horaDf
+
+
+# Corrigindo a coluna datetime
+stationDf['datetime'] = pd.to_datetime(
+    stationDf[['year', 'month','day','hour']],format='%Y%m%d %H')
+
+# Vamos assumir que:
+# - airQualityDf é o DataFrame geral
+# - stations é a lista com o nome de cada estação
+# - Dentro do DataFrame existe uma coluna chamada 'station' que indica a estação de cada linha
+outputDir = r"C:\Users\jrmjr\Documents\ENS5132\CE"
+
+
+for station in stations:
+    # 1) Filtra
+    df_st = allFiles[allFiles['Estacao'] == station].copy()
     
+    # 2) Reconstrói a coluna datetime a partir de 'Data' e 'Hora'
+    #    assumindo 'Data' no formato 'YYYY-MM-DD' e 'Hora' em 'HH:MM:SS'
+    df_st['datetime'] = pd.to_datetime(
+        df_st['Data'] + ' ' + df_st['Hora'],
+        format='%Y-%m-%d %H:%M:%S'
+    )
+    
+    # 3) Define como índice e nomeia
+    df_st = df_st.set_index('datetime')
+    df_st.index.name = 'datetime'
+    
+    # 4) Salva o CSV, agora com primeiro campo 'datetime' corretamente nomeado
+    safe_name = station.replace(' ', '_').replace('/', '_')
+    out_path = os.path.join(outputDir, f'{safe_name}.csv')
+    df_st.to_csv(out_path, index=True)
+    
+    print(f'✔️ Salvou: {out_path}')
+
+
+# Para cada estação...
+for station in stations:
+    # Filtra os dados daquela estação
+    stationDf = allFiles[allFiles['Estacao'] == station]
+    
+    # Cria um nome de arquivo baseado no nome da estação
+
+   
+   
+    # Criando nome limpo para o arquivo
+    station_name_clean = station.replace(" ", "_").replace("/", "_")
+    fileName = f"{station_name_clean}.csv"
+    output_path = os.path.join(outputDir, fileName)
+
+    # Exportando
+    stationDf.to_csv(output_path, index=True)
+'''
     
