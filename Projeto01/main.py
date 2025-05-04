@@ -4,8 +4,13 @@ Created on Tue Apr  8 14:42:31 2025
 
 @author: jrmjr
 """
+import os
+import sys
 
-from airqualityAnalysis import airqualityAnalysis
+# Adiciona o diretório atual (onde está o main.py) ao path
+sys.path.append(os.getcwd())
+
+from airqualityAnalysis import airQualityAnalysis
 from airQualityFigures import airQualityHist, airQualityTimeSeries
 import os
 
@@ -24,7 +29,7 @@ ufs = os.listdir(dataPath)
 # Loop para todos os estados
 for uf in ufs:
     
-    aqData, stations = airqualityAnalysis(uf)
+    aqData, stations = airQualityAnalysis(uf)
     
     os.chdir(repoPath+'/scripts')
     #airQualityHist(aqData,stations,uf,repoPath)

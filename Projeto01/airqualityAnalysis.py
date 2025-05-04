@@ -66,8 +66,6 @@ def airQualityAnalysis(uf,repoPath):
     # Concatenando meus DataFrames
     aqData = pd.concat(allFiles)
     
-    
-    
     # ----------------------- Inserir coluna datetime------------------------------
     # Criando coluna datetime
     datetimeDf = pd.to_datetime(aqData.Data, format='%Y-%m-%d')
@@ -157,10 +155,8 @@ def airQualityAnalysis(uf,repoPath):
          dfmerge = pd.concat(statAll,axis=1)
         
         # Salva as estatísticas por estação    
-    dfmerge.to_csv(r'C:\Users\jrmjr\Documents\ENS5132\Projeto01\outputs'
+         dfmerge.to_csv(r'C:\Users\jrmjr\Documents\ENS5132\Projeto01\outputs'
                               +'/'+uf+'/basicStat_'+st+'.csv')
-    
-    
     # Estatística básica usando groupby
     statGroup = aqData.groupby(['Estacao','Poluente']).describe()
     
@@ -175,5 +171,4 @@ def airQualityAnalysis(uf,repoPath):
         columns='Poluente',
         index=['Estacao','datetime'],
         values='Valor')
-
     return aqData, stations, aqTable
